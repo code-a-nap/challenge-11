@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+    nodeserver:
+        build:
+            context: ./app
+        environment:
+          - SECRET=${SECRET}
+          - DOMAIN=${DOMAIN}
+          - PORT=4000
+          - ADMINPWD=${ADMINPWD}
+          - EASYFLAG=${EASYFLAG}
+          - MEDIUMFLAG=${MEDIUMFLAG}
+          - HARDFLAG=${HARDFLAG}
+        ports:
+            - 4000:4000
+    nginx:
+        restart: always
+        build:
+            context: ./nginx
+        volumes:
+            - /tmp/logs:/var/log/nginx
+        ports:
+            - "80:80"
+        depends_on:
+            - nodeserver
