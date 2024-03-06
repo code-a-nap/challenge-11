@@ -3,7 +3,7 @@ To build the application, just set the required environment variables and use `d
 
 ```
 SECRET='superSecretToken' \
-  DOMAIN='localhost' \
+  DOMAIN='<your_host_ip>' \
   ADMINPWD='superSecretPassword' \
   EASYFLAG='flag{fake_easy_flag}' \
   MEDIUMFLAG='flag{fake_medium_flag}' \
@@ -11,4 +11,4 @@ SECRET='superSecretToken' \
   docker compose up --build --detach
 ```
 
-Then you can access the application at [http://localhost](http://localhost)
+Then you can access the application at http://<your_host_ip>
