@@ -114,6 +114,11 @@ app.get("/randomProfile", requireAuth, (req, res) => {
     res.redirect("/profile-" + users[Math.floor(Math.random() * users.length)].username);
   });
 
+
+app.get("/sandbox", requireAuth, (req, res) => {
+    res.render('sandbox', { payload: req.query.payload });
+});
+
 // Report a user profile to the admin. Still under development..
 app.get("/reportToAdmin", requireAuth, (req, res) => {
   // If the "encodeURI" parameter is set, let's encode the user payload (just in case special characters are needed..) 

@@ -41,7 +41,7 @@ async function visitProfile (username, token) {
     const hardFlag = {name: "HardFlag", value: process.env.HARDFLAG, domain: process.env.DOMAIN, secure: false, httpOnly: false};
 
     await page.setCookie(cookie, hardFlag);
-
+    page.setJavaScriptEnabled(false);
 
     try {
         await page.goto('http://' + process.env.DOMAIN + "/profile-" + username, {
@@ -53,8 +53,23 @@ async function visitProfile (username, token) {
         return;
     }
     
+    
+    const content = await page.content();
+    
+    const page2 = await browser.newPage();
 
-    await page.content();
+    page2.setJavaScriptEnabled(true);
+    try {
+        await page2.goto('http://' + process.env.DOMAIN + "/sandbox?payload=" + encodeURIComponent(content), {
+        waitUntil: ["networkidle0", "domcontentloaded"],
+      });
+    }
+    catch(e){
+        console.log(e);
+        return;
+    }
+
+    await page2.content();
     await browser.close();
 }
 
